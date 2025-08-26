@@ -1,12 +1,11 @@
 import traceback
 from typing import Optional
 
-import appl
 from appl import SystemMessage, gen, ppl
 from appl.compositor import Tagged
 
 
-@ppl()
+@ppl
 def get_explanation(
     traceback: str, error_msg: str = "", extra_msg: str = "", max_tokens: int = 500
 ) -> str:
@@ -36,14 +35,13 @@ def get_explanation(
 
     "Please explain this error briefly and suggest how to fix it."
 
-    return str(gen(max_tokens=max_tokens))
+    return str(gen(server="large", max_tokens=max_tokens))
 
 
 class ExceptionWithExplanation(Exception):
     def __init__(
         self, original_exception: Optional[Exception] = None, message: str = ""
     ):
-        appl.init()  # init appl here if not initialized
         if original_exception is not None:
             error_msg = (
                 f"[{original_exception.__class__.__name__}] {original_exception}"

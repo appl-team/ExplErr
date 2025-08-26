@@ -21,9 +21,6 @@ def main():
 
     pos = result.stderr.find("Traceback (most recent call last):")
     if pos != -1:
-        import appl
-
-        appl.init()  # TODO: disable logging here
         explaination = get_explanation(traceback=result.stderr[pos:])
     else:
         explaination = ""
